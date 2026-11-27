@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import PlaceSearch from "./PlaceSearch";
 import FilterBar from "./FilterBar";
+import ResultList from "./ResultList";
 import { applyFilters } from "@/lib/filters";
 import { getMockResults } from "@/lib/mock-data";
 import { categories, type CategoryKey } from "@/lib/site";
@@ -71,24 +72,7 @@ export default function ExploreClient() {
                 Nothing matches these filters. Try a wider radius or clear the filters.
               </p>
             ) : (
-              <ul className="space-y-3">
-                {/* TEMPORARY rows: Step 5 replaces these with real cards */}
-                {results.map((r) => (
-                  <li
-                    key={r.id}
-                    className="flex items-center justify-between rounded-2xl border border-stone-100 bg-white px-6 py-4 text-sm"
-                  >
-                    <span className="font-bold uppercase tracking-tight text-stone-900">
-                      {r.name}
-                    </span>
-                    <span className="text-stone-500">
-                      {r.distanceKm} km · ★ {r.rating} ·{" "}
-                      {"R".repeat(r.priceLevel ?? 0)} ·{" "}
-                      {r.openNow ? "Open" : "Closed"}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              <ResultList results={results} category={cat} />
             )}
           </>
         )}
